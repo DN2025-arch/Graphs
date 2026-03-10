@@ -33,6 +33,33 @@ class Graph():
                 if visited[child] == False:
                     queue.append(child)
         return res
+
+    #Zoom 36
+    def DFSUtil(self,source,result,visited):
+##        if visited==None:
+##            visited=set()
+        
+        visited[source] = True
+        result.append(source)
+
+        for i in self.adj[source]:
+            if visited[i] == False:
+                result = self.DFSUtil(i,result,visited)
+        return result
+
+    def connected_components(self):
+        visited = []
+        cc = []
+
+        for a in range(self.n):
+            visited.append(False)
+        for b in range(self.n):
+            if visited[b] == False:
+                temp = []
+                cc.append(self.DFSUtil(b,temp,visited))
+        return cc
+
+        
             
         
 def depth_first_search(graph,source,visited=None):
@@ -67,3 +94,8 @@ g2.check_neighbours(2)
 print(g2.breadth_first_search(1)) # Give neighbours of 2: Note: 2-1=1
 depth_first_search(g2.adj,2)
 print("")
+
+#Zoom 36
+
+g2.connected_components()
+
